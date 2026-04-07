@@ -2,7 +2,7 @@
 
 ## LLM 바닥부터 만들기 시리즈
 
-C/C++로 LLM을 밑바닥부터 구현하며 원리를 이해하는 시리즈입니다.
+AI로 AI를 만들면서 바닥부터 원리를 확실하게 터득해나가는 시리즈입니다!
 
 | 파트 | 주제 | 상태 |
 |------|------|------|
@@ -17,15 +17,13 @@ C/C++로 LLM을 밑바닥부터 구현하며 원리를 이해하는 시리즈입
 
 ## 유튜브 무료 강의 (2025)
 
-Python/PyTorch로 LLM의 전체 과정을 개요 수준에서 다룬 무료 강의입니다.
+LLM이 훈련되는 원리를 파이썬으로 간단하게 소개해드리는 무료 강의입니다.
 
-사전학습(pre-training)
-- [유튜브 영상](https://youtu.be/osv2csoHVAo)
-- [강의 노트 - 01_pretraining.ipynb](youtube_2025_overview/01_pretraining.ipynb)
-
-전체 미세조정(full fine-tuning)
-- [강의 노트 - 02_fullfinetuning1_base.ipynb](youtube_2025_overview/02_fullfinetuning1_base.ipynb)
-- [강의 노트 - 03_fullfinetuning2_instruct.ipynb](youtube_2025_overview/03_fullfinetuning2_instruct.ipynb)
+| 유튜브 링크 | 노트 |
+|------|------|
+| [사전학습 (pre-training)](https://youtu.be/osv2csoHVAo) | [01_pretraining.ipynb](youtube_2025_overview/01_pretraining.ipynb) |
+| [미세조정 - base 모델](https://youtu.be/NrDZmSDvXXw) | [02_fullfinetuning1_base.ipynb](youtube_2025_overview/02_fullfinetuning1_base.ipynb) |
+| [미세조정 - instruct 모델](https://youtu.be/NrDZmSDvXXw) | [03_fullfinetuning2_instruct.ipynb](youtube_2025_overview/03_fullfinetuning2_instruct.ipynb) |
 
 ---
 
