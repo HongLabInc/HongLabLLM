@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>직선 + 직선 = 직선 (인터랙티브)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 12px;
+  background: #1A1918; color: #ddd;
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px; line-height: 1.5;
+  word-break: keep-all;
+}
+.fig-panel {
+  background: #202024;
+  border-radius: 14px;
+  padding: 22px;
+}
+.layout {
+  display: flex; gap: 20px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.plot {
+  flex: 1 1 340px; min-width: 0;
+  display: grid;
+  place-items: center;
+}
+.plot svg {
+  width: 100%; max-width: 520px;
+  aspect-ratio: 720 / 420;
+  height: auto;
+  display: block;
+}
+.controls {
+  flex: 0 0 230px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 20px 18px;
+  background: #1c1c20;
+  border-radius: 10px;
+}
+@media (max-width: 540px) {
+  .controls { flex: 1 1 100%; }
+}
+.legend {
+  display: flex; flex-direction: column; gap: 9px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2a2a30;
+}
+.legend-row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; line-height: 1.3;
+}
+.swatch-d { display: inline-block; width: 26px; height: 0; flex-shrink: 0; }
+.swatch-s { display: inline-block; width: 26px; height: 3.5px; flex-shrink: 0; }
+.eq { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.sliders { display: flex; flex-direction: column; gap: 14px; }
+.slider-row { display: flex; flex-direction: column; }
+.slider-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 5px;
+}
+.slider-head .name { font-size: 14px; font-weight: 600; }
+.slider-head .name .desc { color: #777; font-weight: 400; font-size: 11px; }
+.slider-head .val {
+  font-size: 13px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+input[type="range"] {
+  width: 100%; cursor: pointer;
+  height: 18px; margin: 0;
+}
+.caption {
+  font-size: 13px; color: #888;
+  margin-top: 14px; line-height: 1.55;
+  text-align: center;
+  padding: 0 12px;
+}
+.caption strong { color: #aaa; }
+.gold { color: #E0C48A; }
+.lavender { color: #A88FD1; }
+.sage { color: #8CC09E; }
+</style>
+</head>
+<body>
+
+<div class="fig-panel">
+<div class="layout">
+
+  <div class="plot">
+    <svg id="fig3-svg" width="720" height="420" viewBox="0 0 720 420" preserveAspectRatio="xMidYMid meet" font-family="'Noto Sans KR', sans-serif">
+      <defs>
+        <clipPath id="fig3-plot-clip">
+          <rect x="60" y="40" width="600" height="320"/>
+        </clipPath>
+      </defs>
+
+      <g stroke="#2c2c32" stroke-width="0.8" fill="none">
+        <line x1="60"  y1="40"  x2="60"  y2="360"/>
+        <line x1="160" y1="40"  x2="160" y2="360"/>
+        <line x1="260" y1="40"  x2="260" y2="360"/>
+        <line x1="460" y1="40"  x2="460" y2="360"/>
+        <line x1="560" y1="40"  x2="560" y2="360"/>
+        <line x1="660" y1="40"  x2="660" y2="360"/>
+        <line x1="60"  y1="40"  x2="660" y2="40"/>
+        <line x1="60"  y1="104" x2="660" y2="104"/>
+        <line x1="60"  y1="168" x2="660" y2="168"/>
+        <line x1="60"  y1="296" x2="660" y2="296"/>
+        <line x1="60"  y1="360" x2="660" y2="360"/>
+      </g>
+
+      <line x1="360" y1="40"  x2="360" y2="368" stroke="#777" stroke-width="1.5"/>
+      <line x1="52"  y1="232" x2="660" y2="232" stroke="#777" stroke-width="1.5"/>
+
+      <polygon points="360,28 354,40 366,40" fill="#777"/>
+      <polygon points="672,232 660,226 660,238" fill="#777"/>
+
+      <text x="376" y="34"  fill="#aaa" font-size="14">y</text>
+      <text x="668" y="252" fill="#aaa" font-size="14">x</text>
+
+      <text x="60"  y="252" fill="#777" font-size="11" text-anchor="middle">−3</text>
+      <text x="160" y="252" fill="#777" font-size="11" text-anchor="middle">−2</text>
+      <text x="260" y="252" fill="#777" font-size="11" text-anchor="middle">−1</text>
+      <text x="460" y="252" fill="#777" font-size="11" text-anchor="middle">1</text>
+      <text x="560" y="252" fill="#777" font-size="11" text-anchor="middle">2</text>
+      <text x="660" y="252" fill="#777" font-size="11" text-anchor="middle">3</text>
+
+      <text x="354" y="44"  fill="#777" font-size="11" text-anchor="end">6</text>
+      <text x="354" y="108" fill="#777" font-size="11" text-anchor="end">4</text>
+      <text x="354" y="172" fill="#777" font-size="11" text-anchor="end">2</text>
+      <text x="354" y="300" fill="#777" font-size="11" text-anchor="end">−2</text>
+      <text x="354" y="364" fill="#777" font-size="11" text-anchor="end">−4</text>
+
+      <g clip-path="url(#fig3-plot-clip)">
+        <line id="fig3-line1" x1="60" y1="328" x2="660" y2="136" stroke="#A88FD1" stroke-width="2.5" stroke-dasharray="7,5" stroke-opacity="0.85"/>
+        <line id="fig3-line2" x1="60" y1="88"  x2="660" y2="184" stroke="#8CC09E" stroke-width="2.5" stroke-dasharray="7,5" stroke-opacity="0.85"/>
+        <line id="fig3-sum"   x1="60" y1="184" x2="660" y2="88"  stroke="#E0C48A" stroke-width="3.5"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="controls">
+    <div class="legend">
+      <div class="legend-row">
+        <span class="swatch-d" style="border-top: 2.5px dashed #A88FD1;"></span>
+        <span class="lavender"><strong>직선 1</strong> &nbsp;<span id="fig3-eq1" class="eq">y = 1.0x + 0.0</span></span>
+      </div>
+      <div class="legend-row">
+        <span class="swatch-d" style="border-top: 2.5px dashed #8CC09E;"></span>
+        <span class="sage"><strong>직선 2</strong> &nbsp;<span id="fig3-eq2" class="eq">y = −0.5x + 3.0</span></span>
+      </div>
+      <div class="legend-row">
+        <span class="swatch-s" style="background: #E0C48A;"></span>
+        <span class="gold"><strong>합</strong> &nbsp;&nbsp;&nbsp;&nbsp;<span id="fig3-eq-sum" class="eq" style="font-weight:600;">y = 0.5x + 3.0</span></span>
+      </div>
+    </div>
+
+    <div class="sliders">
+      <div class="slider-row">
+        <div class="slider-head">
+          <span class="name lavender">w<sub>1</sub> <span class="desc">(기울기)</span></span>
+          <span id="fig3-w1-val" class="val lavender">1.0</span>
+        </div>
+        <input type="range" id="fig3-w1" min="-2" max="2" step="0.1" value="1.0" style="accent-color:#A88FD1;">
+      </div>
+      <div class="slider-row">
+        <div class="slider-head">
+          <span class="name lavender">b<sub>1</sub> <span class="desc">(절편)</span></span>
+          <span id="fig3-b1-val" class="val lavender">0.0</span>
+        </div>
+        <input type="range" id="fig3-b1" min="-3" max="3" step="0.1" value="0.0" style="accent-color:#A88FD1;">
+      </div>
+      <div class="slider-row">
+        <div class="slider-head">
+          <span class="name sage">w<sub>2</sub> <span class="desc">(기울기)</span></span>
+          <span id="fig3-w2-val" class="val sage">−0.5</span>
+        </div>
+        <input type="range" id="fig3-w2" min="-2" max="2" step="0.1" value="-0.5" style="accent-color:#8CC09E;">
+      </div>
+      <div class="slider-row">
+        <div class="slider-head">
+          <span class="name sage">b<sub>2</sub> <span class="desc">(절편)</span></span>
+          <span id="fig3-b2-val" class="val sage">3.0</span>
+        </div>
+        <input type="range" id="fig3-b2" min="-3" max="3" step="0.1" value="3.0" style="accent-color:#8CC09E;">
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="caption">
+  슬라이더로 w<sub>1</sub>, b<sub>1</sub>, w<sub>2</sub>, b<sub>2</sub>를 직접 조절해 보자 — 두 직선이 어떻게 변하든 합(<span class="gold">골드</span>)은 항상 또 직선이다. 기울기는 w<sub>1</sub>+w<sub>2</sub>, 절편은 b<sub>1</sub>+b<sub>2</sub>로 더해질 뿐이다.
+</div>
+
+<script>
+(function () {
+  const x2px = x => 360 + x * 100;
+  const y2px = y => 232 - y * 32;
+
+  function setLine(id, w, b) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.setAttribute('x1', x2px(-3));
+    el.setAttribute('y1', y2px(w * (-3) + b));
+    el.setAttribute('x2', x2px(3));
+    el.setAttribute('y2', y2px(w * 3 + b));
+  }
+
+  function fmtNum(n) {
+    return n.toFixed(1).replace('-', '−');
+  }
+
+  function fmtEq(w, b) {
+    const wStr = fmtNum(w);
+    const bOp = b < 0 ? ' − ' : ' + ';
+    const bStr = Math.abs(b).toFixed(1);
+    return `y = ${wStr}x${bOp}${bStr}`;
+  }
+
+  const W1 = document.getElementById('fig3-w1');
+  const B1 = document.getElementById('fig3-b1');
+  const W2 = document.getElementById('fig3-w2');
+  const B2 = document.getElementById('fig3-b2');
+
+  function update() {
+    const w1 = parseFloat(W1.value);
+    const b1 = parseFloat(B1.value);
+    const w2 = parseFloat(W2.value);
+    const b2 = parseFloat(B2.value);
+
+    setLine('fig3-line1', w1, b1);
+    setLine('fig3-line2', w2, b2);
+    setLine('fig3-sum',   w1 + w2, b1 + b2);
+
+    document.getElementById('fig3-w1-val').textContent = fmtNum(w1);
+    document.getElementById('fig3-b1-val').textContent = fmtNum(b1);
+    document.getElementById('fig3-w2-val').textContent = fmtNum(w2);
+    document.getElementById('fig3-b2-val').textContent = fmtNum(b2);
+
+    document.getElementById('fig3-eq1').textContent    = fmtEq(w1, b1);
+    document.getElementById('fig3-eq2').textContent    = fmtEq(w2, b2);
+    document.getElementById('fig3-eq-sum').textContent = fmtEq(w1 + w2, b1 + b2);
+  }
+
+  [W1, B1, W2, B2].forEach(s => s.addEventListener('input', update));
+  update();
+})();
+</script>
+
+</body>
+</html>
