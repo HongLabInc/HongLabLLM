@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>직선 + 직선 = 직선 (인터랙티브)</title>
+<title>직선의 가중합도 직선 (인터랙티브)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -158,7 +158,10 @@ input[type="range"] {
       </div>
       <div class="legend-row">
         <span class="swatch-s" style="background: #E0C48A;"></span>
-        <span class="gold"><strong>합</strong> &nbsp;&nbsp;&nbsp;&nbsp;<span id="fig3-eq-sum" class="eq" style="font-weight:600;">y = 0.5x + 3.0</span></span>
+        <span class="gold"><strong>가중합</strong> <span id="fig3-eq-sum" class="eq" style="font-weight:600;">y = 0.5x + 3.0</span></span>
+      </div>
+      <div style="font-size:11px; color:#888; line-height:1.4; padding-top:4px;">
+        <span class="gold">가중합</span> = <span class="lavender">α·직선1</span> + <span class="sage">β·직선2</span>
       </div>
     </div>
 
@@ -191,6 +194,20 @@ input[type="range"] {
         </div>
         <input type="range" id="fig3-b2" min="-3" max="3" step="0.1" value="3.0" style="accent-color:#8CC09E;">
       </div>
+      <div class="slider-row">
+        <div class="slider-head">
+          <span class="name lavender">α <span class="desc">(직선 1 가중치)</span></span>
+          <span id="fig3-alpha-val" class="val lavender">1.0</span>
+        </div>
+        <input type="range" id="fig3-alpha" min="-2" max="2" step="0.1" value="1.0" style="accent-color:#A88FD1;">
+      </div>
+      <div class="slider-row">
+        <div class="slider-head">
+          <span class="name sage">β <span class="desc">(직선 2 가중치)</span></span>
+          <span id="fig3-beta-val" class="val sage">1.0</span>
+        </div>
+        <input type="range" id="fig3-beta" min="-2" max="2" step="0.1" value="1.0" style="accent-color:#8CC09E;">
+      </div>
     </div>
   </div>
 
@@ -198,7 +215,7 @@ input[type="range"] {
 </div>
 
 <div class="caption">
-  슬라이더로 w<sub>1</sub>, b<sub>1</sub>, w<sub>2</sub>, b<sub>2</sub>를 직접 조절해 보자 — 두 직선이 어떻게 변하든 합(<span class="gold">골드</span>)은 항상 또 직선이다. 기울기는 w<sub>1</sub>+w<sub>2</sub>, 절편은 b<sub>1</sub>+b<sub>2</sub>로 더해질 뿐이다.
+  두 직선의 모양(<span class="lavender">w<sub>1</sub>, b<sub>1</sub></span>, <span class="sage">w<sub>2</sub>, b<sub>2</sub></span>)과 가중치(<span class="lavender">α</span>, <span class="sage">β</span>)를 자유롭게 조절해 보자. 가중합 = α·(w<sub>1</sub>x + b<sub>1</sub>) + β·(w<sub>2</sub>x + b<sub>2</sub>) = (αw<sub>1</sub>+βw<sub>2</sub>)x + (αb<sub>1</sub>+βb<sub>2</sub>) — 어떻게 결합해도 결과(<span class="gold">골드</span>)는 항상 또 직선이다.
 </div>
 
 <script>
@@ -230,28 +247,37 @@ input[type="range"] {
   const B1 = document.getElementById('fig3-b1');
   const W2 = document.getElementById('fig3-w2');
   const B2 = document.getElementById('fig3-b2');
+  const Alpha = document.getElementById('fig3-alpha');
+  const Beta  = document.getElementById('fig3-beta');
 
   function update() {
     const w1 = parseFloat(W1.value);
     const b1 = parseFloat(B1.value);
     const w2 = parseFloat(W2.value);
     const b2 = parseFloat(B2.value);
+    const alpha = parseFloat(Alpha.value);
+    const beta  = parseFloat(Beta.value);
+
+    const sumW = alpha * w1 + beta * w2;
+    const sumB = alpha * b1 + beta * b2;
 
     setLine('fig3-line1', w1, b1);
     setLine('fig3-line2', w2, b2);
-    setLine('fig3-sum',   w1 + w2, b1 + b2);
+    setLine('fig3-sum',   sumW, sumB);
 
-    document.getElementById('fig3-w1-val').textContent = fmtNum(w1);
-    document.getElementById('fig3-b1-val').textContent = fmtNum(b1);
-    document.getElementById('fig3-w2-val').textContent = fmtNum(w2);
-    document.getElementById('fig3-b2-val').textContent = fmtNum(b2);
+    document.getElementById('fig3-w1-val').textContent    = fmtNum(w1);
+    document.getElementById('fig3-b1-val').textContent    = fmtNum(b1);
+    document.getElementById('fig3-w2-val').textContent    = fmtNum(w2);
+    document.getElementById('fig3-b2-val').textContent    = fmtNum(b2);
+    document.getElementById('fig3-alpha-val').textContent = fmtNum(alpha);
+    document.getElementById('fig3-beta-val').textContent  = fmtNum(beta);
 
     document.getElementById('fig3-eq1').textContent    = fmtEq(w1, b1);
     document.getElementById('fig3-eq2').textContent    = fmtEq(w2, b2);
-    document.getElementById('fig3-eq-sum').textContent = fmtEq(w1 + w2, b1 + b2);
+    document.getElementById('fig3-eq-sum').textContent = fmtEq(sumW, sumB);
   }
 
-  [W1, B1, W2, B2].forEach(s => s.addEventListener('input', update));
+  [W1, B1, W2, B2, Alpha, Beta].forEach(s => s.addEventListener('input', update));
   update();
 })();
 </script>
