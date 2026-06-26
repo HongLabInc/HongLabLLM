@@ -7,7 +7,7 @@ AI로 AI를 만들면서 바닥부터 원리를 확실하게 터득해나가는 
 | 파트 | 주제 | 상태 |
 |------|------|------|
 | **파트1** | [통계적 언어 모델의 원리](https://www.honglab.ai/courses/llmpt1) | 판매중 |
-| **파트2** | [뉴럴 언어 모델](https://www.honglab.ai/courses/llmpt2) | 판매중 |
+| **파트2** | [뉴럴 언어 모델의 이해](https://www.honglab.ai/courses/llmpt2) | 판매중 |
 | **파트3** | 트랜스포머 | 준비 중 |
 | **파트4** | 대화형 LLM 만들기 | 계획 중 |
 
